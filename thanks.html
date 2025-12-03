@@ -31,7 +31,8 @@
             background: radial-gradient(circle at top, #0a3452 0%, var(--deep-ocean) 55%, #000207 100%);
             display: grid;
             place-items: center;
-            overflow: hidden;
+            overflow-x: hidden;  /* keep horizontal clean */   
+            overflow-y: auto;    /* allow vertical scrolling */
         }
 
         .wave-bg {
@@ -270,3 +271,4 @@
     </script>
 </body>
 </html>
+
