@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Little Christmas Note for Ava 🎄🌊</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+    <style>
+        :root {
+            --deep-ocean: #020c1b;
+            --teal: #00b7c2;
+            --aqua: #5ce1e6;
+            --soft-sand: #fdf8e8;
+            --coral: #ff7f50;
+            --star-gold: #ffd700;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            background: radial-gradient(circle at top, #0a3a57 0%, var(--deep-ocean) 55%, #000207 100%);
+            font-family: "Poppins", sans-serif;
+            color: var(--soft-sand);
+            overflow: hidden;
+        }
+
+        .bg-orbit {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.25;
+            background:
+                radial-gradient(circle at 10% 10%, rgba(92, 225, 230, 0.6) 0, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(255, 215, 0, 0.4) 0, transparent 45%);
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 2.2rem 1.6rem 2.4rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 24px;
+            border: 1px solid rgba(92, 225, 230, 0.4);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+            padding: 2rem 1.6rem 2.3rem;
+            backdrop-filter: blur(18px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: -80%;
+            background: conic-gradient(
+                from 220deg,
+                transparent 0,
+                rgba(92, 225, 230, 0.25) 25%,
+                rgba(255, 215, 0, 0.2) 45%,
+                transparent 60%,
+                transparent 100%
+            );
+            opacity: 0.8;
+            animation: rotateGlow 14s linear infinite;
+        }
+
+        .card-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes rotateGlow {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.9rem;
+            border-radius: 999px;
+            background: rgba(2, 12, 27, 0.8);
+            border: 1px solid rgba(92, 225, 230, 0.6);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 0.7rem;
+        }
+
+        .pill-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--aqua);
+            box-shadow: 0 0 16px rgba(92, 225, 230, 0.9);
+        }
+
+        .title {
+            font-family: "Pacifico", cursive;
+            font-size: clamp(2rem, 4vw, 2.7rem);
+            margin-bottom: 0.4rem;
+        }
+
+        .title span {
+            color: var(--star-gold);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            opacity: 0.85;
+            margin-bottom: 1.4rem;
+        }
+
+        .divider {
+            width: 70px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--aqua), var(--coral));
+            border-radius: 999px;
+            margin-bottom: 1.5rem;
+        }
+
+        .letter p {
+            font-size: 0.98rem;
+            line-height: 1.7;
+            margin-bottom: 0.9rem;
+        }
+
+        .letter p:last-child {
+            margin-bottom: 0;
+        }
+
+        .ultra-soft {
+            opacity: 0.9;
+        }
+
+        .closing {
+            margin-top: 1.1rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .check-row {
+            margin-top: 1.8rem;
+            padding-top: 1.4rem;
+            border-top: 1px dashed rgba(255, 255, 255, 0.25);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .check-label {
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.4rem;
+            border-radius: 999px;
+            border: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--teal), var(--aqua));
+            color: #020c1b;
+            box-shadow: 0 12px 26px rgba(92, 225, 230, 0.5);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 16px 30px rgba(92, 225, 230, 0.7);
+        }
+
+        .btn-ghost {
+            background: rgba(2, 12, 27, 0.8);
+            color: var(--soft-sand);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-ghost:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+            background: rgba(2, 12, 27, 0.9);
+        }
+
+        .tiny-note {
+            margin-top: 0.7rem;
+            font-size: 0.8rem;
+            opacity: 0.65;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 1.6rem 1.3rem 2rem;
+            }
+            .check-row {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+            .buttons {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-orbit"></div>
+
+    <div class="wrapper">
+        <div class="card" id="card">
+            <div class="card-inner">
+                <div class="pill">
+                    <span class="pill-dot"></span>
+                    <span>For Ava · Christmas 2025</span>
+                </div>
+
+                <h1 class="title">
+                    A small wave of good wishes, <span>Ava</span> 🌊
+                </h1>
+                <p class="subtitle">
+                    From one person in this residence to another – nothing intense, just a quiet wish 
+                    that your December feels a little more peaceful and a little more you.
+                </p>
+
+                <div class="divider"></div>
+
+                <div class="letter">
+                    <p>Hey Ava,</p>
+
+                    <p>
+                        Since this whole thing is a bit of a random-gift situation, I only know a few
+                        things about you: that you’re from New Zealand, that swimming and the ocean
+                        are very much your environment, and that music is one of your favourite ways 
+                        to exist in the world.
+                    </p>
+
+                    <p>
+                        That already sounds like such a solid combination: water to reset your mind,
+                        music to soundtrack whatever season you’re in, and a home country that’s
+                        basically a postcard any time you look at a coastline.
+                    </p>
+
+                    <p>
+                        So, for Christmas, I just wanted to wish you days that feel like early-morning
+                        swims: clear, calm, and a little bit magic. May your playlists stay elite,
+                        your schedule give you at least a few slow mornings, and your year ahead be 
+                        more about steady progress than chaotic stress.
+                    </p>
+
+                    <p class="ultra-soft">
+                        If you’re ever missing home, I hope you somehow find little New Zealand-style
+                        moments here – a sky that reminds you of somewhere else, the sound of water,
+                        or a song that instantly puts you back on a beach in your head.
+                    </p>
+
+                    <p>
+                        Wherever you end up swimming next – pools, open water, or just in your thoughts –
+                        I hope it all feels safe, grounding, and very “you”.
+                    </p>
+
+                    <p class="closing">
+                        Merry Christmas, Happy New Year in advance, and I genuinely hope 2026 is gentle,
+                        kind, and full of small, quiet wins for you. 🎄🌊🎧
+                    </p>
+                </div>
+
+                <div class="check-row">
+                    <div class="check-label">
+                        Tiny check-in: did this little page manage to make you smile at least once? 🙂
+                    </div>
+                    <div class="buttons">
+                        <button class="btn btn-primary" id="smileBtn">
+                            Yes, a little bit <span>✨</span>
+                        </button>
+                        <button class="btn btn-ghost" id="replayBtn">
+                            Take me back to the shells <span>🐚</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tiny-note">
+                    (P.S. No need to reply or do anything – this really is just a one-way wish on a webpage.)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const card = document.getElementById("card");
+        const smileBtn = document.getElementById("smileBtn");
+        const replayBtn = document.getElementById("replayBtn");
+
+        // Subtle hover tilt
+        document.addEventListener("mousemove", (e) => {
+            const x = (window.innerWidth / 2 - e.clientX) / 40;
+            const y = (window.innerHeight / 2 - e.clientY) / 40;
+            card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+        });
+
+        // Smile button -> confetti & go to final page
+        smileBtn.addEventListener("click", () => {
+            party.confetti(smileBtn, {
+                count: 200,
+                spread: 300,
+                size: 1.5,
+                colors: ["#5ce1e6", "#ffd700", "#ff7f50", "#ffffff"]
+            });
+
+            setTimeout(() => {
+                window.location.href = "thanks.html";
+            }, 1100);
+        });
+
+        // Replay -> back to index shells
+        replayBtn.addEventListener("click", () => {
+            party.sparkles(replayBtn, {
+                count: 70,
+                size: 1.2,
+                speed: 80
+            });
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 900);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meri Kirihimete, Ava! 🌊🎄</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    />
+
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+    <style>
+        :root {
+            --deep-ocean: #031b34;
+            --teal: #00b7c2;
+            --aqua: #5ce1e6;
+            --soft-sand: #fef9e7;
+            --coral: #ff7f50;
+            --star-gold: #ffd700;
+            --transition-standard: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Poppins", sans-serif;
+            color: var(--soft-sand);
+            background: radial-gradient(circle at top, #0b3a61 0%, var(--deep-ocean) 55%, #020813 100%);
+            overflow-x: hidden;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .floating-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .snowflake,
+        .note,
+        .bubble {
+            position: absolute;
+            font-size: 1.4rem;
+            opacity: 0;
+            animation: floatDown 10s linear infinite;
+        }
+
+        .bubble {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        @keyframes floatDown {
+            0% {
+                transform: translateY(-10vh) translateX(0);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 3rem;
+            text-align: center;
+            transform-style: preserve-3d;
+        }
+
+        .title-wrap {
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+            perspective: 1000px;
+        }
+
+        .subtitle-small {
+            font-size: 0.9rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .main-title {
+            font-family: "Pacifico", cursive;
+            font-size: clamp(2.2rem, 5vw, 3.3rem);
+            margin-top: 0.5rem;
+            background: linear-gradient(135deg, var(--aqua), var(--star-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(0, 183, 194, 0.6);
+            transform-style: preserve-3d;
+        }
+
+        .name-highlight {
+            display: inline-block;
+            color: var(--star-gold);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+        }
+
+        .tagline {
+            margin-top: 0.8rem;
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+
+        .card-row {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+            gap: 1.8rem;
+            margin-top: 2.5rem;
+        }
+
+        .letter-card,
+        .game-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 18px;
+            border: 1px solid rgba(92, 225, 230, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(16px);
+            padding: 1.8rem 1.6rem;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: var(--transition-standard);
+        }
+
+        .letter-card:hover,
+        .game-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .letter-card {
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .letter-inner {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .letter-card.flipped .letter-inner {
+            transform: rotateY(180deg);
+        }
+
+        .letter-face {
+            backface-visibility: hidden;
+            position: relative;
+        }
+
+        .letter-back {
+            position: absolute;
+            inset: 0;
+            padding: 1.6rem;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .letter-header {
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--aqua);
+            margin-bottom: 0.7rem;
+        }
+
+        .letter-text p {
+            font-size: 0.98rem;
+            line-height: 1.7;
+            margin-bottom: 0.7rem;
+            text-align: left;
+        }
+
+        .letter-footer {
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+            text-align: left;
+            opacity: 0.85;
+        }
+
+        .hint-chip {
+            position: absolute;
+            bottom: 0.9rem;
+            right: 1.2rem;
+            font-size: 0.75rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(3, 27, 52, 0.7);
+            border: 1px solid rgba(92, 225, 230, 0.5);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .hint-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--aqua);
+        }
+
+        /* Game card */
+        .game-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1.2rem;
+        }
+
+        .shell-zone {
+            margin: 0 auto 1.2rem;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 2px dashed rgba(92, 225, 230, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shell-icon {
+            font-size: 2.4rem;
+            transition: var(--transition-standard);
+        }
+
+        .shell-zone:hover .shell-icon {
+            transform: scale(1.10) translateY(-2px);
+        }
+
+        .small-wave {
+            position: absolute;
+            inset: auto 0 -25%;
+            height: 60%;
+            background: radial-gradient(circle at top, rgba(92, 225, 230, 0.4), transparent 60%);
+            opacity: 0.3;
+            filter: blur(4px);
+        }
+
+        .progress-wrap {
+            margin-top: 0.9rem;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+
+        .bar-shells {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.09);
+            border-radius: 999px;
+            overflow: hidden;
+            box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.4);
+            margin-top: 0.35rem;
+        }
+
+        .bar-inner {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--aqua), var(--coral), var(--star-gold));
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .progress-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .dot-live {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--coral);
+            box-shadow: 0 0 12px rgba(255, 127, 80, 0.8);
+            animation: pulseDot 1.4s ease-in-out infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.3);
+            }
+        }
+
+        .cta-btn {
+            margin-top: 1.8rem;
+            padding: 0.8rem 2.3rem;
+            border-radius: 999px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.98rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--teal), var(--aqua));
+            color: #02101f;
+            box-shadow: 0 14px 30px rgba(0, 183, 194, 0.4);
+            transform-style: preserve-3d;
+            transition: var(--transition-standard);
+        }
+
+        .cta-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .cta-btn:not(:disabled):hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 18px 40px rgba(0, 183, 194, 0.6);
+        }
+
+        .cta-btn span {
+            display: inline-block;
+            margin-left: 0.4rem;
+        }
+
+        .music-toggle {
+            position: fixed;
+            top: 1.2rem;
+            right: 1.2rem;
+            z-index: 10;
+            width: 42px;
+            height: 42px;
+            border-radius: 999px;
+            background: rgba(3, 27, 52, 0.75);
+            border: 1px solid rgba(92, 225, 230, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            transition: var(--transition-standard);
+            font-size: 1.1rem;
+        }
+
+        .music-toggle.active {
+            box-shadow: 0 0 18px rgba(92, 225, 230, 0.9);
+            background: radial-gradient(circle at top, rgba(92, 225, 230, 0.4), rgba(3, 27, 52, 0.9));
+        }
+
+        .credit {
+            position: fixed;
+            bottom: 6px;
+            right: 8px;
+            font-size: 0.7rem;
+            opacity: 0.5;
+        }
+
+        .credit a {
+            color: var(--aqua);
+            text-decoration: none;
+        }
+
+        .credit a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 820px) {
+            .card-row {
+                grid-template-columns: minmax(0, 1fr);
+            }
+            .letter-card,
+            .game-card {
+                padding: 1.5rem 1.3rem;
+            }
+            .tagline {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding-inline: 1rem;
+            }
+            .shell-zone {
+                width: 95px;
+                height: 95px;
+            }
+            .shell-icon {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating decorations -->
+    <div class="floating-layer" id="floatLayer"></div>
+
+    <!-- Music control -->
+    <button class="music-toggle" id="musicToggle" aria-label="Toggle background music">🎧</button>
+    <div class="credit">Background music: <a href="https://www.bensound.com" target="_blank">Bensound</a></div>
+
+    <div class="container">
+        <div class="title-wrap">
+            <div class="subtitle-small">Residence Secret Gift · 2025</div>
+            <h1 class="main-title">
+                Meri Kirihimete, <span class="name-highlight">Ava</span> 🌊🎄
+            </h1>
+            <p class="tagline">
+                A tiny ocean-themed corner of the internet, just for you – with a bit of Christmas sparkle,
+                a few seashells, and plenty of good wishes for the year ahead.
+            </p>
+        </div>
+
+        <div class="card-row">
+            <!-- Letter Card -->
+            <div class="letter-card" id="letterCard">
+                <div class="letter-inner">
+                    <!-- Front -->
+                    <div class="letter-face letter-front">
+                        <div class="letter-header">An ocean-sized Christmas hello</div>
+                        <div class="letter-text">
+                            <p>Hi Ava 👋</p>
+                            <p>
+                                I got told a few key facts about you: that you’re from New Zealand, that the ocean is
+                                very much your element, and that music is a big part of your world. That honestly
+                                sounded like such a cool combination that it deserved its own little webpage.
+                            </p>
+                            <p>
+                                Consider this a small digital postcard from a neighbour in the residence – wishing
+                                you peaceful waves, good playlists, and a December that feels a bit softer around the edges.
+                            </p>
+                        </div>
+                        <div class="letter-footer">
+                            Click this card to flip it and see the rest of the message once the shells are collected. 🐚
+                        </div>
+                    </div>
+
+                    <!-- Back -->
+                    <div class="letter-face letter-back">
+                        <div class="letter-header">A quick note before you open the full message</div>
+                        <div class="letter-text">
+                            <p>
+                                Since we don’t really know each other (yet!), this isn’t anything deep or dramatic –
+                                just a genuine wish that your Christmas feels calm, cozy, and very “you”.
+                            </p>
+                            <p>
+                                I hope the sea feels close, even if it’s only in your head or through a song,
+                                and that 2026 is full of steady water, bright mornings, and the kind of swims
+                                that reset your whole brain in the best way.
+                            </p>
+                        </div>
+                        <div class="letter-footer">
+                            When the shell meter is full, you can unlock a longer little letter on the next page.
+                        </div>
+                    </div>
+                </div>
+                <div class="hint-chip">
+                    <span class="hint-dot"></span>
+                    <span>Tap to flip after collecting shells</span>
+                </div>
+            </div>
+
+            <!-- Game Card -->
+            <div class="game-card">
+                <div class="game-title">Collect 7 shells to unlock your message 🐚</div>
+                <div class="game-subtitle">
+                    Each tap fills the tide a little more. When the bar is full, your Christmas surprise opens.
+                </div>
+
+                <div class="shell-zone" id="shellZone">
+                    <div class="small-wave"></div>
+                    <div class="shell-icon" id="shellIcon">🐚</div>
+                </div>
+
+                <div class="progress-wrap">
+                    <div class="progress-label">
+                        <div class="dot-live"></div>
+                        <span id="progressText">Shells collected: 0 / 7</span>
+                    </div>
+                    <div class="bar-shells">
+                        <div class="bar-inner" id="barInner"></div>
+                    </div>
+                </div>
+
+                <button class="cta-btn" id="openBtn" disabled>
+                    Open your Christmas note <span>➡️</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio -->
+    <audio id="bgMusic" loop>
+        <!-- You can replace this URL with a local mp3 if you want -->
+        <source src="https://www.bensound.com/bensound-music/bensound-christmas.mp3" type="audio/mpeg" />
+    </audio>
+
+    <script>
+        const floatLayer = document.getElementById("floatLayer");
+        const bgMusic = document.getElementById("bgMusic");
+        const musicToggle = document.getElementById("musicToggle");
+        const shellZone = document.getElementById("shellZone");
+        const shellIcon = document.getElementById("shellIcon");
+        const barInner = document.getElementById("barInner");
+        const progressText = document.getElementById("progressText");
+        const openBtn = document.getElementById("openBtn");
+        const letterCard = document.getElementById("letterCard");
+
+        let shellsCollected = 0;
+        const shellsNeeded = 7;
+        let musicOn = false;
+
+        // Create floating snowflakes, notes, and bubbles
+        function createFloatingChars() {
+            const symbols = ["❄️", "❄️", "🎵", "🎶", "•"];
+            for (let i = 0; i < 40; i++) {
+                const span = document.createElement("span");
+                const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+
+                if (symbol === "❄️") {
+                    span.className = "snowflake";
+                } else if (symbol === "•") {
+                    span.className = "bubble";
+                } else {
+                    span.className = "note";
+                }
+
+                span.textContent = symbol === "•" ? "●" : symbol;
+                span.style.left = Math.random() * 100 + "%";
+                span.style.animationDelay = Math.random() * 10 + "s";
+                span.style.animationDuration = 8 + Math.random() * 8 + "s";
+                floatLayer.appendChild(span);
+            }
+        }
+
+        // Music toggle
+        musicToggle.addEventListener("click", () => {
+            if (!musicOn) {
+                bgMusic
+                    .play()
+                    .then(() => {
+                        musicOn = true;
+                        musicToggle.classList.add("active");
+                        anime({
+                            targets: musicToggle,
+                            scale: [0.9, 1.1, 1],
+                            rotateZ: [0, 360],
+                            duration: 600
+                        });
+                    })
+                    .catch(() => {
+                        // autoplay blocked, do nothing special
+                    });
+            } else {
+                bgMusic.pause();
+                musicOn = false;
+                musicToggle.classList.remove("active");
+            }
+        });
+
+        // Try to start music quietly (might be blocked on some browsers)
+        window.addEventListener("load", () => {
+            bgMusic.volume = 0.35;
+        });
+
+        // Shell collection
+        shellZone.addEventListener("click", (e) => {
+            if (shellsCollected >= shellsNeeded) return;
+
+            shellsCollected++;
+            const ratio = (shellsCollected / shellsNeeded) * 100;
+            barInner.style.width = ratio + "%";
+            progressText.textContent = `Shells collected: ${shellsCollected} / ${shellsNeeded}`;
+
+            shellIcon.style.transform = "scale(1.3) translateY(-3px)";
+            setTimeout(() => {
+                shellIcon.style.transform = "scale(1)";
+            }, 200);
+
+            party.confetti(shellZone, {
+                count: 35,
+                spread: 35,
+                size: 1.2,
+                colors: ["#5ce1e6", "#ffd700", "#ff7f50"]
+            });
+
+            if (shellsCollected === shellsNeeded) {
+                openBtn.disabled = false;
+                openBtn.style.animation = "pulseCta 1.1s ease-in-out infinite";
+
+                party.confetti(document.body, {
+                    count: 250,
+                    spread: 360,
+                    size: 1.6,
+                    colors: ["#5ce1e6", "#ffd700", "#ffffff"]
+                });
+            }
+        });
+
+        // CTA button -> go to message page
+        openBtn.addEventListener("click", () => {
+            anime({
+                targets: "body",
+                opacity: [1, 0],
+                duration: 900,
+                easing: "easeInOutQuad",
+                complete: () => {
+                    window.location.href = "message.html";
+                }
+            });
+        });
+
+        // Letter flip
+        letterCard.addEventListener("click", () => {
+            if (shellsCollected < shellsNeeded) {
+                // small nudge if user hasn’t finished the shells yet
+                party.sparkles(letterCard, {
+                    count: 20,
+                    size: 1.1,
+                    speed: 60
+                });
+            }
+            letterCard.classList.toggle("flipped");
+        });
+
+        // Subtle parallax on mouse move
+        document.addEventListener("mousemove", (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 10;
+            const y = (e.clientY / window.innerHeight - 0.5) * 6;
+            document.querySelector(".title-wrap").style.transform = `rotateX(${y}deg) rotateY(${-x}deg)`;
+        });
+
+        // CTA pulse keyframes (injected via JS so CSS stays tidy)
+        const style = document.createElement("style");
+        style.innerHTML = `
+            @keyframes pulseCta {
+                0%, 100% { transform: translateY(0) scale(1); }
+                50% { transform: translateY(-3px) scale(1.04); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        createFloatingChars();
+    </script>
+</body>
+</html>
