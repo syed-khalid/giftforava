@@ -32,7 +32,8 @@
             background: radial-gradient(circle at top, #0a3a57 0%, var(--deep-ocean) 55%, #000207 100%);
             font-family: "Poppins", sans-serif;
             color: var(--soft-sand);
-            overflow: hidden;
+            overflow-x: hidden;  /* keep horizontal clean */
+            overflow-y: auto;    /* allow vertical scrolling */
         }
 
         .bg-orbit {
@@ -359,3 +360,4 @@
     </script>
 </body>
 </html>
+
